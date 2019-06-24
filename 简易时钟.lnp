@@ -1,0 +1,4 @@
+"简易时钟.obj",
+"iic.obj" 
+TO "简易时钟" 
+RAMSIZE(256) 

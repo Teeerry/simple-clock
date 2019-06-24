@@ -1,0 +1,124 @@
+C51 COMPILER V9.00   MUSIC                                                                 05/15/2017 23:44:45 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE MUSIC
+OBJECT MODULE PLACED IN music.OBJ
+COMPILER INVOKED BY: D:\ÐÂ½¨ÎÄ¼þ¼Ð\C51\BIN\C51.EXE music.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /************************************************************************  
+   2          [ÎÄ¼þÃû]  C51ÒôÀÖ³ÌÐò(°ËÔÂ¹ð»¨)  
+   3          [¹¦ÄÜ]    Í¨¹ýµ¥Æ¬»úÑÝ×àÒôÀÖ  
+   4          /**********************************************************************/   
+   5          #include "main.h"    
+   6          sbit Beep =  P1^5; 
+   7             
+   8          uchar n=0;  //nÎª½ÚÅÄ³£Êý±äÁ¿    
+   9          uchar code music_tab[] ={//¸ñÊ½Îª: ÆµÂÊ³£Êý, ½ÚÅÄ³£Êý, ÆµÂÊ³£Êý, ½ÚÅÄ³£Êý,    
+  10          0x18, 0x30, 0x1C , 0x10,    
+  11          0x20, 0x40, 0x1C , 0x10,   
+  12          0x18, 0x10, 0x20 , 0x10,   
+  13          0x1C, 0x10, 0x18 , 0x40,   
+  14          0x1C, 0x20, 0x20 , 0x20,   
+  15          0x1C, 0x20, 0x18 , 0x20,   
+  16          0x20, 0x80, 0xFF , 0x20,   
+  17          0x30, 0x1C, 0x10 , 0x18,   
+  18          0x20, 0x15, 0x20 , 0x1C,   
+  19          0x20, 0x20, 0x20 , 0x26,   
+  20          0x40, 0x20, 0x20 , 0x2B,   
+  21          0x20, 0x26, 0x20 , 0x20,   
+  22          0x20, 0x30, 0x80 , 0xFF,   
+  23          0x20, 0x20, 0x1C , 0x10,   
+  24          0x18, 0x10, 0x20 , 0x20,   
+  25          0x26, 0x20, 0x2B , 0x20,   
+  26          0x30, 0x20, 0x2B , 0x40,   
+  27          0x20, 0x20, 0x1C , 0x10,   
+  28          0x18, 0x10, 0x20 , 0x20,   
+  29          0x26, 0x20, 0x2B , 0x20,   
+  30          0x30, 0x20, 0x2B , 0x40,   
+  31          0x20, 0x30, 0x1C , 0x10,   
+  32          0x18, 0x20, 0x15 , 0x20,   
+  33          0x1C, 0x20, 0x20 , 0x20,   
+  34          0x26, 0x40, 0x20 , 0x20,   
+  35          0x2B, 0x20, 0x26 , 0x20,   
+  36          0x20, 0x20, 0x30 , 0x80,   
+  37          0x20, 0x30, 0x1C , 0x10,   
+  38          0x20, 0x10, 0x1C , 0x10,   
+  39          0x20, 0x20, 0x26 , 0x20,   
+  40          0x2B, 0x20, 0x30 , 0x20,   
+  41          0x2B, 0x40, 0x20 , 0x15,   
+  42          0x1F, 0x05, 0x20 , 0x10,   
+  43          0x1C, 0x10, 0x20 , 0x20,   
+  44          0x26, 0x20, 0x2B , 0x20,   
+  45          0x30, 0x20, 0x2B , 0x40,   
+  46          0x20, 0x30, 0x1C , 0x10,   
+  47          0x18, 0x20, 0x15 , 0x20,   
+  48          0x1C, 0x20, 0x20 , 0x20,   
+  49          0x26, 0x40, 0x20 , 0x20,   
+  50          0x2B, 0x20, 0x26 , 0x20,   
+  51          0x20, 0x20, 0x30 , 0x30,   
+  52          0x20, 0x30, 0x1C , 0x10,   
+  53          0x18, 0x40, 0x1C , 0x20,   
+  54          0x20, 0x20, 0x26 , 0x40,   
+  55          0x13, 0x60, 0x18 , 0x20,   
+C51 COMPILER V9.00   MUSIC                                                                 05/15/2017 23:44:45 PAGE 2   
+
+  56          0x15, 0x40, 0x13 , 0x40,   
+  57          0x18, 0x80, 0x00   
+  58          };   
+  59             
+  60          void int0()  interrupt 1   //²ÉÓÃÖÐ¶Ï0 ¿ØÖÆ½ÚÅÄ    
+  61          {  TH0=0xd8;   
+  62   1         TL0=0xef;   
+  63   1         n--;   
+  64   1      }   
+  65             
+  66          void delay (unsigned char m)   //¿ØÖÆÆµÂÊÑÓÊ±    
+  67          {   
+  68   1       unsigned i=3*m;   
+  69   1       while(--i);   
+  70   1      }   
+  71             
+  72          void delayms(unsigned char a)  //ºÀÃëÑÓÊ±×Ó³ÌÐò    
+  73          {   
+  74   1        while(--a);                  //²ÉÓÃwhile(--a) ²»Òª²ÉÓÃwhile(a--); ¸÷Î»¿É±àÒëÒ»ÏÂ¿´¿´»ã±à½á¹û¾ÍÖªµÀÁË!   
+             - 
+  75   1      }   
+  76             
+  77          void StartMusic()   
+  78          { 
+  79   1              uchar p,m;   //mÎªÆµÂÊ³£Êý±äÁ¿    
+  80   1              uchar i=0;   
+  81   1              TMOD&=0x0f;   
+  82   1              TMOD|=0x01;   
+  83   1          TH0=0xd8;TL0=0xef;   
+  84   1          IE=0x82;   
+  85   1      play:   
+  86   1         while(1)   
+  87   1          {   
+  88   2          a: p=music_tab[i];   
+  89   2             if(p==0x00)       { i=0, delayms(1000); goto play;}     //Èç¹ûÅöµ½½áÊø·û,ÑÓÊ±1Ãë,»Øµ½¿ªÊ¼ÔÙÀ´Ò»±é  
+             -  
+  90   2             else if(p==0xff)  { i=i+1;delayms(100),TR0=0; goto a;}  //ÈôÅöµ½ÐÝÖ¹·û,ÑÓÊ±100ms,¼ÌÐøÈ¡ÏÂÒ»Òô·û    
+  91   2                  else         {m=music_tab[i++], n=music_tab[i++];}  //È¡ÆµÂÊ³£Êý ºÍ ½ÚÅÄ³£Êý    
+  92   2                   TR0=1;                                             //¿ª¶¨Ê±Æ÷1    
+  93   2                 while(n!=0) Beep=~Beep,delay(m);                         //µÈ´ý½ÚÅÄÍê³É, Í¨¹ýP1¿ÚÊä³öÒôÆµ(¿É¶àÉ
+             -ùµÀÅ¶!)    
+  94   2             TR0=0;                                             //¹Ø¶¨Ê±Æ÷1    
+  95   2          }   
+  96   1      }  
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    224    ----
+   CONSTANT SIZE    =    191    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     19    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
