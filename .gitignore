@@ -1,3 +1,13 @@
+# keil file
+*.lnp
+*.htm
+*.lst
+*.m51
+*.uvproj
+*.uvopt
+*.uvgui.*
+Objects/*
+
 # Prerequisites
 *.d
 
@@ -50,3 +60,4 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
